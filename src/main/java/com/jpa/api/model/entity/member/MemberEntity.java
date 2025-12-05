@@ -1,19 +1,27 @@
 package com.jpa.api.model.entity.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jpa.api.model.entity.base.BaseEntity;
 import com.jpa.api.model.enums.MemberStatus;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "tb_member")
 public class MemberEntity extends BaseEntity {
     

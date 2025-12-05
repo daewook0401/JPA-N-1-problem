@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "team_member")
+@Table(name = "tb_team_member")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +23,11 @@ import jakarta.persistence.Table;
 public class TeamMemberEntity extends BaseEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team", nullable = false)
     private TeamEntity team;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member", nullable = false)
     private MemberEntity member;
     
     @Column(nullable = false)
