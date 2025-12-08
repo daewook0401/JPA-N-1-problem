@@ -1,4 +1,4 @@
-package com.jpa.api.model.enums;
+package com.jpa.api.member.model.enums;
 
 public enum MemberStatus {
     ACTIVE,
