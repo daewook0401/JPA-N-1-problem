@@ -3,6 +3,7 @@ package com.jpa.api.team.model.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jpa.api.global.exception.util.TeamNotFoundException;
 import com.jpa.api.team.model.dto.RequestTeamDTO;
@@ -22,11 +23,13 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
 
     @Override
+    @Transactional
     public void createTeam(RequestTeamDTO team) {
         teamRepository.save(TeamEntity.create(team));
     }
 
     @Override
+    @Transactional
     public void updateTeam(Long id, RequestTeamDTO team) {
         TeamEntity teamEntity = teamRepository.findById(id)
             .orElseThrow(() -> new TeamNotFoundException("잘못된 수정 요청"));
@@ -34,6 +37,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Transactional
     public void deleteTeam(Long id) {
         TeamEntity teamEntity = teamRepository.findById(id)
             .orElseThrow(() -> new TeamNotFoundException("잘못된 삭제 요청"));
@@ -41,6 +45,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Transactional
     public ResponseTeamDTO selectAllTeams(Pageable pageable) {
         Page<TeamEntity> teamList = teamRepository.findAll(pageable);
         if (teamList.equals(null)){

@@ -39,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public void deleteMember(Long id) {
         MemberEntity memberEntity = memberRepository.findById(id)
             .orElseThrow(() -> new MemberNotFoundException("잘못된 삭제 요청"));
@@ -47,6 +48,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseMemberDTO selectAllMembers(Pageable pageable) {
         Page<MemberEntity> memberList = memberRepository.findAll(pageable);
         if (memberList.equals(null)){

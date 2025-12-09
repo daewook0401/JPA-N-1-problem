@@ -1,5 +1,9 @@
 package com.jpa.api.member.model.entity;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.jpa.api.global.entity.BaseEntity;
 import com.jpa.api.member.model.dto.RequestMemberDTO;
 import com.jpa.api.member.model.enums.MemberStatus;
@@ -35,6 +39,7 @@ public class MemberEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @BatchSize(size = 10)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false)
     private TeamEntity team;
