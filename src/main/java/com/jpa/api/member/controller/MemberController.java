@@ -55,10 +55,8 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<ResponseMemberDTO> selectAllMember(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "100") int size,
-        @RequestHeader(value = "Accept", required = false) String acceptHeader
+        @RequestParam(defaultValue = "100") int size
     ) {
-        log.info("Accept Header = {}", acceptHeader);
         Pageable pageable = PageRequest.of(page, size);
         ResponseMemberDTO members = memberService.selectAllMembers(pageable);
         return ResponseEntity.ok(members);

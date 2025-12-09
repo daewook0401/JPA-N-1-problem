@@ -1,7 +1,6 @@
 package com.jpa.api.member.model.dto;
 
 import com.jpa.api.member.model.entity.MemberEntity;
-import com.jpa.api.team.model.entity.TeamEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class MemberDTO {
 
     private Long id;
-    private TeamEntity team;
+    private Long teamId;
+    private String teamName;
     private String username;
     private String email;
     private String name;
@@ -23,15 +23,16 @@ public class MemberDTO {
     private String status;
 
     public static MemberDTO from(MemberEntity member) {
-        
         return MemberDTO.builder()
                 .id(member.getId())
-                .team(member.getTeam())
+                .teamId(member.getTeam() != null ? member.getTeam().getId() : null)
+                .teamName(member.getTeam() != null ? member.getTeam().getTeamName() : null)
                 .username(member.getUsername())
                 .email(member.getEmail())
                 .name(member.getName())
                 .phoneNumber(member.getPhoneNumber())
-                .status(member.getStatus().name())  // ENUM → 문자열 변환
+                .status(member.getStatus().name())
                 .build();
     }
 }
+
