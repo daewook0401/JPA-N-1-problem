@@ -79,6 +79,7 @@ public class DefaultInitializer implements ApplicationRunner {
                 String email = username + "@company.com";
                 
                 MemberEntity member = MemberEntity.builder()
+                    .team(team)
                     .username(username)
                     .email(email)
                     .password("password" + (memberIndex + 1))

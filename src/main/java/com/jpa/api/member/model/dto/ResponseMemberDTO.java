@@ -6,9 +6,11 @@ import com.jpa.api.member.model.entity.MemberEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseMemberDTO {

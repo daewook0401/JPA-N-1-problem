@@ -3,6 +3,7 @@ package com.jpa.api.member.model.entity;
 import com.jpa.api.global.entity.BaseEntity;
 import com.jpa.api.member.model.dto.RequestMemberDTO;
 import com.jpa.api.member.model.enums.MemberStatus;
+import com.jpa.api.team.model.entity.TeamEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +34,10 @@ public class MemberEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
+    private TeamEntity team;
 
     @Column(nullable = false, unique = true, length = 30)
     private String username;
@@ -57,8 +65,9 @@ public class MemberEntity extends BaseEntity {
         this.phoneNumber = member.getPhoneNumber();
     }
 
-    public static MemberEntity create(RequestMemberDTO member){
+    public static MemberEntity create(RequestMemberDTO member, TeamEntity team){
         return MemberEntity.builder()
+            .team(team)
             .username(member.getUsername())
             .email(member.getEmail())
             .password(member.getPassword())

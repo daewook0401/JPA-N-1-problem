@@ -11,7 +11,7 @@ import com.jpa.api.member.model.dto.ResponseMemberDTO;
 import com.jpa.api.member.model.entity.MemberEntity;
 import com.jpa.api.member.model.repository.MemberRepository;
 import com.jpa.api.member.model.service.MemberService;
-
+import com.jpa.api.team.model.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,12 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberServiceImpl implements MemberService {
 
+    private final TeamRepository teamRepository;
     private final MemberRepository memberRepository;
 
     @Override
     @Transactional
-    public void createMember(RequestMemberDTO member) {
-        memberRepository.save(MemberEntity.create(member));
+    public void createMember(RequestMemberDTO member, Long teamId) {
+        memberRepository.save(MemberEntity.create(member, teamRepository.findById(teamId).get()));
     }
 
     @Override

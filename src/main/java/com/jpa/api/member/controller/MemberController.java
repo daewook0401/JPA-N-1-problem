@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +35,8 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<String> createMember(@Valid @RequestBody RequestMemberDTO member) {
-        memberService.createMember(member);
+    public ResponseEntity<String> createMember(@Valid @RequestBody RequestMemberDTO member, @RequestBody Long teamId) {
+        memberService.createMember(member, teamId);
         return ResponseEntity.ok("Create member success");
     }
     
@@ -54,8 +55,10 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<ResponseMemberDTO> selectAllMember(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "100") int size
+        @RequestParam(defaultValue = "100") int size,
+        @RequestHeader(value = "Accept", required = false) String acceptHeader
     ) {
+        log.info("Accept Header = {}", acceptHeader);
         Pageable pageable = PageRequest.of(page, size);
         ResponseMemberDTO members = memberService.selectAllMembers(pageable);
         return ResponseEntity.ok(members);

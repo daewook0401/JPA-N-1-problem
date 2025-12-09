@@ -6,9 +6,11 @@ import com.jpa.api.team.model.entity.TeamEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseTeamDTO {

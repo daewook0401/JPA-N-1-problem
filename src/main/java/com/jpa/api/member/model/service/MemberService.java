@@ -7,7 +7,7 @@ import com.jpa.api.member.model.dto.ResponseMemberDTO;
 
 public interface MemberService {
 
-    void createMember(RequestMemberDTO member);
+    void createMember(RequestMemberDTO member, Long teamId);
     void updateMember(Long id, RequestMemberDTO member);
     void deleteMember(Long id);
     ResponseMemberDTO selectAllMembers(Pageable pageable);
